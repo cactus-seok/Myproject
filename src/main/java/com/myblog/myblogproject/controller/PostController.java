@@ -36,14 +36,14 @@ public class PostController {
     }
 
     // 특정 게시글 삭제
-//    @DeleteMapping("/api/posts/{id}")
-//    public Long deletePost(@PathVariable Long id){
-//        postService.delete(id);
-//        return id;
-//    }
+    @DeleteMapping("/api/post/{id}")
+    public Long deletePost(@PathVariable Long id){
+        postService.deletePost(id);
+        return id;
+    }
 
     // 특정 게시글 수정
-    @PutMapping("/api/posts/{id}")
+    @PutMapping("/api/post/{id}")
     public Long updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
         return postService.update(id, requestDto);
     }

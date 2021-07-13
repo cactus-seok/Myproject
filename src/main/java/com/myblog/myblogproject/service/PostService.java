@@ -43,9 +43,9 @@ public class PostService {
     // 게시글 상세 조회
     @Transactional
     public PostDetailResponseDto findById(Long id){
-        Post entity = postRepository.findById(id).orElseThrow(
+        Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
-        return new PostDetailResponseDto(entity);
+        return new PostDetailResponseDto(post);
     }
 
     // 포스트 수정
