@@ -1,9 +1,17 @@
 package com.myblog.myblogproject.service;
 
 import com.myblog.myblogproject.domain.User;
+import com.myblog.myblogproject.dto.KakaoSignupRequestDto;
 import com.myblog.myblogproject.dto.SignupRequestDto;
 import com.myblog.myblogproject.repository.UserRepository;
+import com.myblog.myblogproject.security.kakao.KakaoOAuth2;
+import com.myblog.myblogproject.security.kakao.KakaoUserInfo;
+import com.myblog.myblogproject.util.exception.SignupRequestException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,13 +33,14 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void checkNameDuplication(String userName){
+    public void checkNameDuplication(String userName) {
         Optional<User> oldUser = userRepository.findByUsername(userName);
-        if(oldUser.isPresent()) {
+        if (oldUser.isPresent()) {
             throw new SignupRequestException("중복된 닉네임 입니다.");
         }
 
     }
+
     public void kakaoLogin(String authorizedCode) {
         // 카카오 OAuth2 를 통해 카카오 사용자 정보 조회
         KakaoUserInfo userInfo = kakaoOAuth2.getUserInfo(authorizedCode);
@@ -57,3 +66,5 @@ public class UserService {
         Authentication kakaoUsernamePassword = new UsernamePasswordAuthenticationToken(username, password);
         Authentication authentication = authenticationManager.authenticate(kakaoUsernamePassword);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+}

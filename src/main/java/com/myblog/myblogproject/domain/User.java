@@ -1,12 +1,18 @@
 package com.myblog.myblogproject.domain;
 
+import com.myblog.myblogproject.dto.KakaoSignupRequestDto;
 import com.myblog.myblogproject.dto.SignupRequestDto;
+import com.myblog.myblogproject.util.UserValidate;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
+import javax.persistence.*;
+
+@NoArgsConstructor
+@Getter
+@Entity
 public class User extends TimeStamped {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
