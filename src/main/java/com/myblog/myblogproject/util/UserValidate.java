@@ -2,8 +2,8 @@ package com.myblog.myblogproject.util;
 
 import com.myblog.myblogproject.dto.SignupRequestDto;
 import com.myblog.myblogproject.util.exception.SignupRequestException;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,14 +24,14 @@ public class UserValidate {
 
     /*
      * 	- 비밀번호는 `최소 4자 이상이며, 닉네임과 같은 값이 포함된 경우 회원가입에 실패`합니다.
-     * - 비밀번호 확인은 비밀번호와 정확하게 일치해야 합니다.
+     *  - 비밀번호 확인은 비밀번호와 정확하게 일치해야 합니다.
      */
     @Transactional
     public static void checkPassword(SignupRequestDto requestDto) {
         //암호화 되지 않은 비밀번호로 비교
         String username = requestDto.getUsername();
-        String password = requestDto.getPassword();
-        String passwordConfirm = requestDto.getPasswordConfirm();
+         String password = requestDto.getPassword();
+        String passwordConfirm = requestDto.getPasswordCheck();
 
         if (password.isEmpty() || passwordConfirm.isEmpty()) {
             throw new SignupRequestException("패스워드를 입력해 주세요.");

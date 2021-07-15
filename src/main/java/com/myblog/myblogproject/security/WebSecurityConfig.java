@@ -37,20 +37,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 //.antMatchers("/detail*").hasAnyRole()
-                .antMatchers("/", "/api/posts", "/api/posts/*", "/posts/detail*", "/user/login/forbidden",
-                        "/user/signup", "/user/login", "/api/reply/post/*","/user/kakao/callback").permitAll()
+                .antMatchers("/", "/api/post", "/api/post/*", "/api/post/detail*", "/login/forbidden",
+                        "/signup", "/login", "/api/reply/post/*","/kakao/callback", "/css/**", "/images/**").permitAll()
                 // 그 외 모든 요청은 인증과정 필요, 로그인 페이지로 리다이렉트된다
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/user/login/forbidden")
-                .loginProcessingUrl("/user/login")
+                .loginPage("/login/forbidden")
+                .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/")
-                .failureUrl("/user/login/error")
+                .failureUrl("/login/error")
                 .permitAll()
                 .and()
                 .logout()
-                .logoutUrl("/user/logout")
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true) // 로그 아웃시 인증정보를 지우하고 세션을 무효화
                 .permitAll();
